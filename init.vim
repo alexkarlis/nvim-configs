@@ -55,6 +55,10 @@ Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'stevearc/dressing.nvim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'vim-test/vim-test'
+Plug 'preservim/vimux'
+Plug 'tpope/vim-dispatch'
 
 
 call plug#end()
@@ -79,6 +83,10 @@ colorscheme base16-gruvbox-dark-soft
 syntax on
 hi Normal ctermbg=NONE
 
+" VIM TEST
+let test#strategy = "dispatch"
+let test#preserve_screen = 1
+
 " Customize the highlight a bit.
 " Make comments more prominent -- they are important.
 " call Base16hi("Comment", g:nvim_base16_gui09, "", g:base16_cterm09, "", "", "")
@@ -91,6 +99,7 @@ hi Normal ctermbg=NONE
 
 " LSP configuration
 lua << END
+
 vim.diagnostic.config({
   float = {
     border = 'rounded',
@@ -121,7 +130,8 @@ require("mason").setup({
 
 require("mason-lspconfig").setup {
     ensure_installed = { "gopls", "lua_ls", "rust_analyzer" },
-}require('lspconfig.ui.windows').default_options.border = 'single'
+}
+require('lspconfig.ui.windows').default_options.border = 'single'
 
 require('Comment').setup()
 
@@ -135,7 +145,7 @@ vim.api.nvim_set_hl(0, 'NormalFloat', {
     link = 'Normal',
 })
 vim.api.nvim_set_hl(0, 'FloatBorder', {
-	bg = 'white',
+	bg = 'none',
 })
 
 -- LSP Borders
@@ -339,6 +349,9 @@ let g:latex_fold_sections = []
 " Open hotkeys
 map <C-p> :Files<CR>
 nmap <leader>; :Buffers<CR>
+nmap <leader>t :TestNearest<CR>
+nmap <leader>T :TestFile<CR>
+nmap <leader>tl :TestLast<CR>
 
 " Quick-save
 nmap <leader>w :w<CR>
@@ -556,6 +569,10 @@ inoremap <up> <nop>
 inoremap <down> <nop>
 inoremap <left> <nop>
 inoremap <right> <nop>
+
+" out of insert mode
+inoremap jk <ESC>
+inoremap kj <ESC>
 
 " Left and right can switch buffers
 nnoremap <left> :bp<CR>
