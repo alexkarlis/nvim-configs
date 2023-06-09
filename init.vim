@@ -59,6 +59,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'vim-test/vim-test'
 Plug 'preservim/vimux'
 Plug 'tpope/vim-dispatch'
+Plug 'folke/trouble.nvim'
+Plug 'nvim-tree/nvim-web-devicons'
 
 
 call plug#end()
@@ -265,6 +267,11 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+lspconfig.clangd.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+}
+
 lspconfig.gopls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
@@ -398,9 +405,6 @@ let g:sneak#s_next = 1
 let g:vim_markdown_new_list_item_indent = 0
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_frontmatter = 1
-set printfont=:h10
-set printencoding=utf-8
-set printoptions=paper:letter
 " Always draw sign column. Prevent buffer moving when adding/deleting sign.
 set signcolumn=yes
 
